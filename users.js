@@ -28,19 +28,20 @@ function UsersDAO(db) {
             user['email'] = email;
         }
 
-        // TODO: hw2.3
-        users.insert(user, function(err, inserted){
-            if(err) throw err;
-            callback(null, inserted);
+        users.insert(user, function (err, result) {
+            "use strict";
 
+            if (!err) {
+                console.log("Inserted new user");
+                return callback(null, result[0]);
+            }
+
+            return callback(err, null);
         });
     }
 
     this.validateLogin = function(username, password, callback) {
         "use strict";
-
-        var query = {"_id" : username};
-        users.findOne(query, validateUserDoc);
 
         // Callback to pass to MongoDB that validates a user document
         function validateUserDoc(err, user) {
@@ -67,9 +68,7 @@ function UsersDAO(db) {
             }
         }
 
-        // TODO: hw2.3
-
-        // callback(Error("validateLogin Not Yet Implemented!"), null);
+        users.findOne({ '_id' : username }, validateUserDoc);
     }
 }
 

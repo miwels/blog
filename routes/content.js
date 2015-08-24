@@ -179,7 +179,7 @@ function ContentHandler (db) {
             if (err) return next(err);
 
             // now redirect to the blog permalink
-            return res.redirect("/post/" + permalink)
+            return res.redirect("/post/" + permalink.permalink)
         });
     }
 }

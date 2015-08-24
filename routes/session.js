@@ -145,8 +145,6 @@ function SessionHandler (db) {
                     if (err) return next(err);
 
                     res.cookie('session', session_id);
-                    res.cookie('username', user[0]['_id']);
-
                     return res.redirect('/welcome');
                 });
             });
@@ -159,8 +157,8 @@ function SessionHandler (db) {
 
     this.displayWelcomePage = function(req, res, next) {
         "use strict";
-        console.log(req.cookies);
-        if (!req.cookies.username) {
+
+        if (!req.username) {
             console.log("welcome: can't identify user...redirecting to signup");
             return res.redirect("/signup");
         }
